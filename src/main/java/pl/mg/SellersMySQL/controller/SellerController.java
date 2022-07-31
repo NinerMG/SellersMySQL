@@ -41,10 +41,14 @@ public class SellerController {
         Seller updateSeller = sellerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Campaign not exist with id: " + id));
 
+
         updateSeller.setCamapaignName(sellerDetails.getCamapaignName());
         updateSeller.setKeywords(sellerDetails.getKeywords());
         updateSeller.setBidAmount(sellerDetails.getBidAmount());
-        updateSeller.setCamapaignFund(sellerDetails.getCamapaignFund());
+
+        int value = sellerDetails.getCamapaignFund() - updateSeller.getBidAmount();
+        updateSeller.setCamapaignFund(value);
+
         updateSeller.setStatus(sellerDetails.getStatus());
         updateSeller.setTown(sellerDetails.getTown());
         updateSeller.setRadius(sellerDetails.getRadius());
